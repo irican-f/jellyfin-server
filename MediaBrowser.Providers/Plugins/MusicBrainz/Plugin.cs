@@ -50,7 +50,7 @@ public class Plugin : BasePlugin<PluginConfiguration>, IHasWebPages
 
     /// <inheritdoc />
     // TODO remove when plugin removed from server.
-    public override string ConfigurationFileName => "Jellyfin.Plugin.MusicBrainz.xml";
+    public override string ConfigurationFileName => "MediaBrowser.Providers.Plugins.MusicBrainz.xml";
 
     /// <inheritdoc />
     public IEnumerable<PluginPageInfo> GetPages()

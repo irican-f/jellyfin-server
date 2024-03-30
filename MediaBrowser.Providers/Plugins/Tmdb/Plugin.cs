@@ -42,7 +42,7 @@ namespace MediaBrowser.Providers.Plugins.Tmdb
         // TODO remove when plugin removed from server.
 
         /// <inheritdoc/>
-        public override string ConfigurationFileName => "Jellyfin.Plugin.Tmdb.xml";
+        public override string ConfigurationFileName => "MediaBrowser.Providers.Plugins.Tmdb.xml";
 
         /// <summary>
         /// Return the plugin configuration page.

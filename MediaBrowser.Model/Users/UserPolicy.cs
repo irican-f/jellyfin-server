@@ -31,6 +31,8 @@ namespace MediaBrowser.Model.Users
             ForceRemoteSourceTranscoding = false;
             EnableLiveTvManagement = true;
             EnableLiveTvAccess = true;
+            EnablePlexBotAccess = true;
+            EnablePlexBotManagement = true;
 
             // Without this on by default, admins won't be able to do this
             // Improve in the future
@@ -129,6 +131,10 @@ namespace MediaBrowser.Model.Users
         public bool EnableLiveTvManagement { get; set; }
 
         public bool EnableLiveTvAccess { get; set; }
+
+        public bool EnablePlexBotAccess { get; set; }
+
+        public bool EnablePlexBotManagement { get; set; }
 
         public bool EnableMediaPlayback { get; set; }
 

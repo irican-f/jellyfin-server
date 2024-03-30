@@ -5,7 +5,8 @@
       "launchBrowser": true,
       "applicationUrl": "http://localhost:8096",
       "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "Development"
+        "ASPNETCORE_ENVIRONMENT": "Development",
+        "JELLYFIN_WEB_DIR": "P:\\Projets\\jellyfin\\jellyfin-web\\dist"
       }
     },
     "Jellyfin.Server (nowebclient)": {

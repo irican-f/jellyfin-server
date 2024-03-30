@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Template</title>
+</head>
+<body>
+    <div id="PlexBotConfigPage" data-role="page" class="page type-interior pluginConfigurationPage" data-require="emby-input,emby-button,emby-select,emby-checkbox">
+        <div data-role="content">
+            <div class="content-primary">
+                <form id="TemplateConfigForm">
+<!--                    <div class="selectContainer">-->
+<!--                        <label class="selectLabel" for="Options">Several Options</label>-->
+<!--                        <select is="emby-select" id="Options" name="Options" class="emby-select-withcolor emby-select">-->
+<!--                            <option id="optOneOption" value="OneOption">One Option</option>-->
+<!--                            <option id="optAnotherOption" value="AnotherOption">Another Option</option>-->
+<!--                        </select>-->
+<!--                    </div>-->
+<!--                    <div class="inputContainer">-->
+<!--                        <label class="inputLabel inputLabelUnfocused" for="AnInteger">An Integer</label>-->
+<!--                        <input id="AnInteger" name="AnInteger" type="number" is="emby-input" min="0" />-->
+<!--                        <div class="fieldDescription">A Description</div>-->
+<!--                    </div>-->
+<!--                    <div class="checkboxContainer checkboxContainer-withDescription">-->
+<!--                        <label class="emby-checkbox-label">-->
+<!--                            <input id="TrueFalseSetting" name="TrueFalseCheckBox" type="checkbox" is="emby-checkbox" />-->
+<!--                            <span>A Checkbox</span>-->
+<!--                        </label>-->
+<!--                    </div>-->
+                    <div class="inputContainer">
+                        <label class="inputLabel inputLabelUnfocused" for="ApiUrl">PlexBot API url</label>
+                        <input id="ApiUrl" name="ApiUrl" type="text" is="emby-input" />
+                        <div class="fieldDescription">Jellyfin will make calls to PlexBot's Web API</div>
+                    </div>
+                    <div>
+                        <button is="emby-button" type="submit" class="raised button-submit block emby-button">
+                            <span>Save</span>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+<!--        @import url("/web/themes/jellyskin/theme.css");-->
+<!--        #reactRoot {-->
+<!--        height: 100% !important;-->
+<!--        padding-bottom: 50px;-->
+<!--        }-->
+
+        <script type="text/javascript">
+            const PlexBotConfig = {
+                pluginUniqueId: '92403887-6440-494a-b41a-8890d552d73a'
+            };
+
+            document.querySelector('#PlexBotConfigPage')
+                .addEventListener('pageshow', function() {
+                    Dashboard.showLoadingMsg();
+                    ApiClient.getPluginConfiguration(PlexBotConfig.pluginUniqueId).then(function (config) {
+                        // document.querySelector('#Options').value = config.Options;
+                        // document.querySelector('#AnInteger').value = config.AnInteger;
+                        // document.querySelector('#TrueFalseSetting').checked = config.TrueFalseSetting;
+                        document.querySelector('#ApiUrl').value = config.ApiUrl;
+                        Dashboard.hideLoadingMsg();
+                    });
+                });
+
+            document.querySelector('#TemplateConfigForm')
+                .addEventListener('submit', function(e) {
+                Dashboard.showLoadingMsg();
+                ApiClient.getPluginConfiguration(PlexBotConfig.pluginUniqueId).then(function (config) {
+                    // config.Options = document.querySelector('#Options').value;
+                    // config.AnInteger = document.querySelector('#AnInteger').value;
+                    // config.TrueFalseSetting = document.querySelector('#TrueFalseSetting').checked;
+                    config.ApiUrl = document.querySelector('#ApiUrl').value;
+                    ApiClient.updatePluginConfiguration(PlexBotConfig.pluginUniqueId, config).then(function (result) {
+                        Dashboard.processPluginConfigurationUpdateResult(result);
+                    });
+                });
+
+                e.preventDefault();
+                return false;
+            });
+        </script>
+    </div>
+</body>
+</html>

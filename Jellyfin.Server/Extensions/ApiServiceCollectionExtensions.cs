@@ -87,6 +87,8 @@ namespace Jellyfin.Server.Extensions
                     Policies.RequiresElevation,
                     policy => policy.AddAuthenticationSchemes(AuthenticationSchemes.CustomAuthentication)
                         .RequireClaim(ClaimTypes.Role, UserRoles.Administrator));
+                options.AddPolicy(Policies.PlexBotAccess, new UserPermissionRequirement(PermissionKind.EnablePlexBotAccess));
+                options.AddPolicy(Policies.PlexBotManagement, new UserPermissionRequirement(PermissionKind.EnablePlexBotManagement));
             });
         }
 

@@ -354,6 +354,8 @@ namespace Jellyfin.Server.Implementations.Users
                     EnableRemoteAccess = user.HasPermission(PermissionKind.EnableRemoteAccess),
                     EnableLiveTvManagement = user.HasPermission(PermissionKind.EnableLiveTvManagement),
                     EnableLiveTvAccess = user.HasPermission(PermissionKind.EnableLiveTvAccess),
+                    EnablePlexBotAccess = user.HasPermission(PermissionKind.EnablePlexBotAccess),
+                    EnablePlexBotManagement = user.HasPermission(PermissionKind.EnablePlexBotManagement),
                     EnableMediaPlayback = user.HasPermission(PermissionKind.EnableMediaPlayback),
                     EnableAudioPlaybackTranscoding = user.HasPermission(PermissionKind.EnableAudioPlaybackTranscoding),
                     EnableVideoPlaybackTranscoding = user.HasPermission(PermissionKind.EnableVideoPlaybackTranscoding),
@@ -691,6 +693,8 @@ namespace Jellyfin.Server.Implementations.Users
                 user.SetPermission(PermissionKind.EnableLyricManagement, policy.EnableLyricManagement);
                 user.SetPermission(PermissionKind.ForceRemoteSourceTranscoding, policy.ForceRemoteSourceTranscoding);
                 user.SetPermission(PermissionKind.EnablePublicSharing, policy.EnablePublicSharing);
+                user.SetPermission(PermissionKind.EnablePlexBotAccess, policy.EnablePlexBotAccess);
+                user.SetPermission(PermissionKind.EnablePlexBotManagement, policy.EnablePlexBotManagement);
 
                 user.AccessSchedules.Clear();
                 foreach (var policyAccessSchedule in policy.AccessSchedules)

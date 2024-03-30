@@ -48,7 +48,7 @@ namespace MediaBrowser.Providers.Plugins.StudioImages
         // TODO remove when plugin removed from server.
 
         /// <inheritdoc/>
-        public override string ConfigurationFileName => "Jellyfin.Plugin.StudioImages.xml";
+        public override string ConfigurationFileName => "MediaBrowser.Providers.Plugins.StudioImages.xml";
 
         /// <inheritdoc/>
         public IEnumerable<PluginPageInfo> GetPages()

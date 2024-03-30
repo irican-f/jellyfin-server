@@ -15,7 +15,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="AsyncKeyedLock" />
+    <PackageReference Include="AnitomySharp.NET6" />
     <PackageReference Include="LrcParser" />
     <PackageReference Include="MetaBrainz.MusicBrainz" />
     <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" />
@@ -60,5 +60,9 @@
     <EmbeddedResource Include="Plugins\StudioImages\Configuration\config.html" />
     <None Remove="Plugins\Tmdb\Configuration\config.html" />
     <EmbeddedResource Include="Plugins\Tmdb\Configuration\config.html" />
+    <None Remove="Plugins\PlexBot\Configuration\config.html" />
+    <EmbeddedResource Include="Plugins\PlexBot\Configuration\config.html" />
+    <None Remove="Plugins\AniList\Configuration\configPage.html" />
+    <EmbeddedResource Include="Plugins\AniList\Configuration\configPage.html" />
   </ItemGroup>
 </Project>

@@ -91,7 +91,12 @@ public static class Policies
     public const string SubtitleManagement = "SubtitleManagement";
 
     /// <summary>
-    /// Policy name for accessing lyric management.
+    /// Policy name for accessing PlexBot access.
     /// </summary>
-    public const string LyricManagement = "LyricManagement";
+    public const string PlexBotAccess = "PlexBotHasAccess";
+
+    /// <summary>
+    /// Policy name for accessing PlexBot management.
+    /// </summary>
+    public const string PlexBotManagement = "PlexBotManagement";
 }
