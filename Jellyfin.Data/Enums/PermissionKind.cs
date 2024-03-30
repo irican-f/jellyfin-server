@@ -121,6 +121,11 @@ namespace Jellyfin.Data.Enums
         EnableSubtitleManagement = 22,
 
         /// <summary>
+        /// Whether the user can edit lyrics.
+        /// </summary>
+        EnableLyricManagement = 23,
+
+        /// <summary>
         /// Whether the user can use PlexBot.
         /// </summary>
         EnablePlexBotAccess = 100,
