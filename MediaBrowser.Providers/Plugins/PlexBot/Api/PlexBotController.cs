@@ -44,7 +44,7 @@ public class PlexBotController : ControllerBase
         if (response.IsSuccessStatusCode)
         {
             var content = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
-            return Ok(content);
+            return Content(content, "application/json");
         }
 
         return StatusCode((int)response.StatusCode);
