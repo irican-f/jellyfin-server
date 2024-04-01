@@ -1,11 +1,11 @@
-﻿using System.Net.Http;
+﻿using System.IO;
+using System.Net.Http;
 using System.Net.Mime;
+using System.Text;
 using System.Threading.Tasks;
 using MediaBrowser.Common.Api;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 
 namespace MediaBrowser.Providers.Plugins.PlexBot.Api;
 
@@ -37,9 +37,48 @@ public class PlexBotController : ControllerBase
     /// <param name="path">The url path.</param>
     /// <returns>The response from PlexBot API.</returns>
     [HttpGet("{*path}")]
-    public async Task<IActionResult> Get(string path)
+    public Task<IActionResult> Get(string path)
     {
-        var response = await _httpClient.GetAsync($"{Plugin.Instance?.Configuration.ApiUrl}/{path}").ConfigureAwait(false);
+        return Forward(HttpMethod.Get, path);
+    }
+
+    /// <summary>
+    /// Acts as a proxy for POST requests to PlexBot.
+    /// </summary>
+    /// <param name="path">The url path.</param>
+    /// <returns>The response from PlexBot API.</returns>
+    [HttpPost("{*path}")]
+    public Task<IActionResult> Post(string path)
+    {
+        return Forward(HttpMethod.Post, path);
+    }
+
+    /// <summary>
+    /// Acts as a proxy for PUT requests to PlexBot.
+    /// </summary>
+    /// <param name="path">The url path.</param>
+    /// <returns>The response from PlexBot API.</returns>
+    [HttpPut("{*path}")]
+    public Task<IActionResult> Put(string path)
+    {
+        return Forward(HttpMethod.Put, path);
+    }
+
+    /// <summary>
+    /// Acts as a proxy for DELETE requests to PlexBot.
+    /// </summary>
+    /// <param name="path">The url path.</param>
+    /// <returns>The response from PlexBot API.</returns>
+    [HttpDelete("{*path}")]
+    public Task<IActionResult> Delete(string path)
+    {
+        return Forward(HttpMethod.Delete, path);
+    }
+
+    private async Task<IActionResult> Forward(HttpMethod method, string path)
+    {
+        var request = await CreateForwardRequest(method, path).ConfigureAwait(false);
+        var response = await _httpClient.SendAsync(request).ConfigureAwait(false);
 
         if (response.IsSuccessStatusCode)
         {
@@ -48,5 +87,29 @@ public class PlexBotController : ControllerBase
         }
 
         return StatusCode((int)response.StatusCode);
+    }
+
+    private async Task<HttpRequestMessage> CreateForwardRequest(HttpMethod method, string path)
+    {
+        // Get the query string from the incoming request
+        var queryString = HttpContext.Request.QueryString;
+
+        // Get the body from the incoming request
+        string requestBody;
+        using (var reader = new StreamReader(HttpContext.Request.Body))
+        {
+            requestBody = await reader.ReadToEndAsync().ConfigureAwait(false);
+        }
+
+        // Create the outgoing request
+        var request = new HttpRequestMessage(method, $"{Plugin.Instance?.Configuration.ApiUrl}/{path}{queryString}");
+
+        // Set the body of the outgoing request
+        if (!string.IsNullOrEmpty(requestBody))
+        {
+            request.Content = new StringContent(requestBody, Encoding.UTF8, "application/json");
+        }
+
+        return request;
     }
 }
